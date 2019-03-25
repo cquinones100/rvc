@@ -1,6 +1,7 @@
 require './lib/rvc/base'
 require './lib/rvc/required_local_not_defined'
 require './lib/rvc/inline'
+require './lib/rvc/javascript_function'
 
 module Rvc
   class Component
@@ -8,7 +9,13 @@ module Rvc
       def render(base: nil, **args, &block)
         component = new(base: base, block: block, **args)
 
-        component.base.render inline: component.render
+        render_string = component.render
+
+        javascript_functions = component.javascript_functions.map do |func|
+          func.to_script_tag
+        end.join
+
+        component.base.render inline: javascript_functions + render_string
       end
 
       def locals(*args, **required_args)
@@ -53,6 +60,22 @@ module Rvc
       end
     end
 
+    def javascript_functions
+      @javascript_functions ||= []
+    end
+
+    private
+
+    def JavascriptFunction(name: nil, **arguments, &block)
+      javascript_function = JavascriptFunction.new block: block,
+        arguments: arguments,
+        name: name
+
+      javascript_functions << javascript_function
+
+      javascript_function
+    end
+
     def html
       base.render inline: yield
     end
@@ -62,8 +85,6 @@ module Rvc
 
       base.render inline: inline.render
     end
-
-    private
 
     def undefined_required_locals
       return [] unless respond_to? :required_locals

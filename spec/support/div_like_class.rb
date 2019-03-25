@@ -1,9 +1,13 @@
 class DivLikeClass < Rvc::Component
-  locals :id
+  locals :id, :onclick
 
   def render
     <<~HTML
-      <div id='#{@id}'>#{block.call}</div>
+      <div id='#{@id}'#{render_onclick}>#{block.call}</div>
     HTML
+  end
+
+  def render_onclick
+    @onclick ? " onclick='#{@onclick}'" : ''
   end
 end
