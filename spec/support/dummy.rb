@@ -1,8 +1,6 @@
-require './spec/support/div_like_class'
 require 'sinatra'
+require './spec/support/index'
 
 get '/' do
-  DivLikeClass.render id: 'welcome' do
-    'Hello!'
-  end
+  Index.render
 end

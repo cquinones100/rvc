@@ -228,16 +228,16 @@ RSpec.describe Rvc::Component do
             (function() {
               var script = document.createElement('script');
               script.innerHTML = "function divLikeClassOnClick(){console.log('hi');}";
-              document.getElementsByTagName('head').appendChild(script);
+              document.getElementsByTagName('head')[0].appendChild(script);
             })();
           </script>
           <div id='1' onclick='divLikeClassOnClick();'>hi</div>
         HTML
       end
 
-      subject { mock_class.render }
+      subject { mock_class.render.gsub("\n", '') }
 
-      it { is_expected.to eq expected_html.strip }
+      it { is_expected.to eq expected_html.gsub("\n", '') }
     end
   end
 end

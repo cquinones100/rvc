@@ -19,8 +19,8 @@ module Rvc
         <script>
           (function() {
             var script = document.createElement('script');
-            script.innerHTML = "#{to_function.strip}";
-            document.getElementsByTagName('head').appendChild(script);
+            script.innerHTML = "#{to_function.gsub("\n", '')}";
+            document.getElementsByTagName('head')[0].appendChild(script);
           })();
         </script>
       JS
@@ -40,7 +40,7 @@ module Rvc
 
     def to_function
       <<~JS
-        function #{name}(#{@arguments.keys.join(',')}){#{block.call.strip}}
+        function #{name}(#{@arguments.keys.join(',')}){#{block.call}}
       JS
     end
     

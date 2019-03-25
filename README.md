@@ -1,5 +1,7 @@
 # RvcCompiler
 
+A component based view framework for Ruby.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -10,7 +12,7 @@ gem 'rvc_compiler'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -20,11 +22,16 @@ Or install it yourself as:
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Clone this repo. Run `bundle install`. 
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can test out new components in `./spec/support/dummy.rb`,
+run `ruby spec/dummy/support/dummy.rb' to test out your changes.
 
 ## Contributing
+
+Clone this repo. Run `bundle install`. 
+
+Test with RSpec. Add specs for any new features.
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/cquinones100/rvc_compiler.
 
