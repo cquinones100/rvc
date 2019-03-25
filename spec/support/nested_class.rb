@@ -1,9 +1,7 @@
 class NestedClass < Rvc::Component
+  require_components Div: './spec/support/div.rb'
+
   def render
-    html do
-      <<~HTML
-      <div>I'm Nested</div>
-      HTML
-    end
+    Div { "I'm Nested" }
   end
 end

@@ -5,19 +5,16 @@ class Div < Rvc::Component
 
   def render
     <<~HTML
-      <div id='#{@id}'#{render_onclick}#{render_class}#{render_style}>#{block.call}</div>
+      <div#{attributes}>#{block.call}</div>
     HTML
   end
 
-  def render_onclick
-    @onclick ? " onclick='#{@onclick}'" : ''
-  end
+  def attributes
+    locals.each_with_object('') do |local, acc|
+      local_value = instance_variable_get("@#{local}")
+      next if local_value.nil?
 
-  def render_class
-    @class ? " class='#{@class}'" : ''
-  end
-
-  def render_style
-    @style ? " style='#{@style}'" : ''
+      acc << " #{local}='#{local_value}'"
+    end
   end
 end

@@ -1,6 +1,7 @@
 require './lib/rvc/component'
 require './lib/rvc/required_local_not_defined'
 require './spec/support/nested_class'
+require './spec/support/div'
 require './lib/rvc/javascript_function'
 
 RSpec.describe Rvc::Component do
@@ -97,12 +98,12 @@ RSpec.describe Rvc::Component do
       context 'when nested deeply' do
         let(:mock_class) do
           class MockClassWithNestingElementsDeeply < Rvc::Component
-            require_components DivLikeClass: './spec/support/div_like_class.rb',
+            require_components Div: './spec/support/div.rb',
               NestedClass: './spec/support/nested_class.rb'
 
             def render
-              DivLikeClass id: '1' do
-                DivLikeClass id: '2' do
+              Div id: '1' do
+                Div id: '2' do
                   NestedClass do; end
                 end
               end
@@ -123,12 +124,12 @@ RSpec.describe Rvc::Component do
     describe 'inlining elements' do
       let(:mock_class) do
         class MockClassWithInliningElements < Rvc::Component
-          require_components DivLikeClass: './spec/support/div_like_class.rb',
+          require_components Div: './spec/support/div.rb',
             NestedClass: './spec/support/nested_class.rb'
 
           def render
             inline do |container|
-              container.add { DivLikeClass id: '1' do; end }
+              container.add { Div id: '1' do; end }
 
               container.add { NestedClass do; end }
             end
@@ -147,10 +148,10 @@ RSpec.describe Rvc::Component do
       context 'when if else blocks' do
         let(:mock_class) do
           class MockClassWithConditionalRendering < Rvc::Component
-            require_components DivLikeClass: './spec/support/div_like_class.rb'
+            require_components Div: './spec/support/div.rb'
 
             def render
-              DivLikeClass id: '1' do
+              Div id: '1' do
                 if true
                   'truth'
                 else
@@ -171,10 +172,10 @@ RSpec.describe Rvc::Component do
       context 'when inlining' do
         let(:mock_class) do
           class MockClassInliningWithConditionalRendering < Rvc::Component
-            require_components DivLikeClass: './spec/support/div_like_class.rb'
+            require_components Div: './spec/support/div.rb'
 
             def render
-              DivLikeClass id: '1' do
+              Div id: '1' do
                 inline do |container|
                   if true
                     container.add { 'truth' }
@@ -199,10 +200,10 @@ RSpec.describe Rvc::Component do
   describe 'handling javascript' do
     let(:mock_class) do
       class MockClassWithJavascript < Rvc::Component
-        require_components DivLikeClass: './spec/support/div_like_class.rb'
+        require_components Div: './spec/support/div.rb'
 
         def render
-          DivLikeClass id: '1', onclick: js_onclick do
+          Div id: '1', onclick: js_onclick do
             'hi'
           end
         end

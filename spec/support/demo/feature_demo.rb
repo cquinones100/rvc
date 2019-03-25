@@ -1,13 +1,13 @@
 require './lib/rvc/component'
 
 class FeatureDemo < Rvc::Component
-  require_components DivLikeClass: './spec/support/div_like_class'
+  require_components Div: './spec/support/div'
 
   locals title: :required, summary: :required, embed_code: :required
 
   def render
-    DivLikeClass id: "#{@title}-feature-demo", class: 'card' do
-      DivLikeClass class: 'card-body' do
+    Div id: "#{@title}-feature-demo", class: 'card' do
+      Div class: 'card-body' do
         inline do |container|
           container.add do
             <<~HTML
@@ -28,16 +28,16 @@ class FeatureDemo < Rvc::Component
           end
 
           container.add do
-            DivLikeClass class: 'row' do
+            Div class: 'row' do
               inline do |row_container|
                 row_container.add do
-                  DivLikeClass class: 'col-md-4' do
+                  Div class: 'col-md-4' do
                     block.call
                   end
                 end
 
                 row_container.add do
-                  DivLikeClass class: 'col-md-8' do
+                  Div class: 'col-md-8' do
                     @embed_code
                   end
                 end

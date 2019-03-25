@@ -20,6 +20,7 @@ module Rvc
 
       def locals(*args, **required_args)
         define_method(:registered_locals) { args + required_args.keys }
+        define_method(:locals) { args + required_args.keys }
 
         define_method(:required_locals) do
           required_args.each_with_object([]) do |(arg, value), acc|
