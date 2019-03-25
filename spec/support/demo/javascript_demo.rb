@@ -1,6 +1,6 @@
 class JavascriptDemo < Rvc::Component
   require_components FeatureDemo: './spec/support/demo/feature_demo',
-    DivLikeClass: './spec/support/div_like_class',
+    Div: './spec/support/div',
     TextInput: './spec/support/text_input'
 
   def render

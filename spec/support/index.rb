@@ -1,7 +1,7 @@
 require './lib/rvc/component'
 
 class Index < Rvc::Component
-  require_components DivLikeClass: './spec/support/div_like_class',
+  require_components Div: './spec/support/div',
     TextInput: './spec/support/text_input',
     FeatureDemo: './spec/support/demo/feature_demo',
     JavascriptDemo: './spec/support/demo/javascript_demo',
