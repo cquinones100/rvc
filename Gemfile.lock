@@ -75,6 +75,7 @@ DEPENDENCIES
   bundler (~> 1.17)
   guard
   guard-rspec
+  rack
   rake (~> 10.0)
   rspec (~> 3.0)
   rvc_compiler!
