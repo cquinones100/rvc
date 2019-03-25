@@ -7,8 +7,22 @@ class JavascriptDemo < Rvc::Component
     FeatureDemo title: 'Javascript',
       summary: 'Write Javascript directly in components.',
       embed_code: embed_code do
-      eval code
-    end
+        inline do |demo_container|
+          demo_container.add do
+            <<~HTML
+            <h1 id='hello'>Hello!</h1>
+            HTML
+          end
+
+          demo_container.add do
+            DivLikeClass id: 'enter-your-name' do
+              'Enter your name'
+            end
+          end
+
+          demo_container.add { TextInput onchange: js_handle_on_change }
+        end
+      end
   end
 
   private
@@ -17,25 +31,6 @@ class JavascriptDemo < Rvc::Component
     <<~HTML
     <script src="https://gist.github.com/cquinones100/f968d73799c9e51ef138683f1138834a.js"></script>
     HTML
-  end
-  def code
-    <<~RUBY
-      inline do |demo_container|
-        demo_container.add do
-          <<~HTML
-            <h1 id='hello'>Hello!</h1>
-          HTML
-        end
-
-        demo_container.add do
-          DivLikeClass id: 'enter-your-name' do
-            'Enter your name'
-          end
-        end
-
-        demo_container.add { TextInput onchange: js_handle_on_change }
-      end
-    RUBY
   end
 
   def js_handle_on_change

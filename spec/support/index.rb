@@ -4,7 +4,8 @@ class Index < Rvc::Component
   require_components DivLikeClass: './spec/support/div_like_class',
     TextInput: './spec/support/text_input',
     FeatureDemo: './spec/support/demo/feature_demo',
-    JavascriptDemo: './spec/support/demo/javascript_demo'
+    JavascriptDemo: './spec/support/demo/javascript_demo',
+    HtmlDemo: './spec/support/demo/html_demo'
 
   def render
     <<~HTML
@@ -94,7 +95,15 @@ class Index < Rvc::Component
 
         container.add do
           DivLikeClass id: 'first-row', class: 'row' do
-            DivLikeClass id: 'welcome', class: 'col-md-12' do
+            DivLikeClass id: 'html-demo-column', class: 'col-md-12' do
+              HtmlDemo do; end
+            end
+          end
+        end
+
+        container.add do
+          DivLikeClass id: 'second-row', class: 'row' do
+            DivLikeClass id: 'javascript-demo-column', class: 'col-md-12' do
               JavascriptDemo do; end
             end
           end
