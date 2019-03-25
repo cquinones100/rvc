@@ -1,4 +1,6 @@
 require './lib/rvc/base'
+require './lib/rvc/required_local_not_defined'
+require './lib/rvc/inline'
 
 module Rvc
   class Component
@@ -53,6 +55,12 @@ module Rvc
 
     def html
       base.render inline: yield
+    end
+
+    def inline
+      inline = yield Inline.new(base: base)
+
+      base.render inline: inline.render
     end
 
     private

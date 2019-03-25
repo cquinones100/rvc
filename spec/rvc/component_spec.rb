@@ -1,15 +1,17 @@
-require './lib/rvc/component.rb'
-require './lib/rvc/required_local_not_defined.rb'
-require './spec/support/nested_class.rb'
+require './lib/rvc/component'
+require './lib/rvc/required_local_not_defined'
+require './spec/support/nested_class'
 
 RSpec.describe Rvc::Component do
+  subject { mock_class.render }
+
   describe 'rendering' do
     let(:mock_class) do
       class MockClass < Rvc::Component
         def render
           html do
             <<~HTML
-            <div>hi</div>
+              <div>hi</div>
             HTML
           end
         end
@@ -19,8 +21,6 @@ RSpec.describe Rvc::Component do
     end
 
     let(:expected_html) { '<div>hi</div>' }
-
-    subject { mock_class.render }
 
     it { is_expected.to eq expected_html }
   end
@@ -45,7 +45,7 @@ RSpec.describe Rvc::Component do
     let(:name) { 'Carlos' }
 
     let(:expected_html) { "<div>hi #{name}</div>" }
-
+    
     subject { mock_class.render(name: name) }
 
     it { is_expected.to eq expected_html }
@@ -70,8 +70,6 @@ RSpec.describe Rvc::Component do
 
     let(:name) { 'Carlos' }
 
-    subject { mock_class.render }
-
     it { expect { subject }.to raise_error RequiredLocalNotDefined }
   end
 
@@ -90,8 +88,6 @@ RSpec.describe Rvc::Component do
       end
 
       let(:expected_html) { "<div>I'm Nested</div>" }
-
-      subject { mock_class.render }
 
       it { is_expected.to eq expected_html }
     end
@@ -118,9 +114,30 @@ RSpec.describe Rvc::Component do
        "<div id='1'><div id='2'><div>I'm Nested</div></div></div>"
      end
 
-     subject { mock_class.render }
-
-     fit { is_expected.to eq expected_html }
+     it { is_expected.to eq expected_html }
    end
+  end
+
+  describe 'inlining elements' do
+    let(:mock_class) do
+      class MockClassWithInliningElements < Rvc::Component
+         require_components DivLikeClass: './spec/support/div_like_class.rb',
+           NestedClass: './spec/support/nested_class.rb'
+
+         def render
+           inline do |container|
+             container.add { DivLikeClass id: '1' do; end }
+
+             container.add { NestedClass do; end }
+           end
+         end
+      end
+
+      MockClassWithInliningElements
+    end
+
+     let(:expected_html) { "<div id='1'></div><div>I'm Nested</div>" }
+
+     it { is_expected.to eq expected_html }
   end
 end
