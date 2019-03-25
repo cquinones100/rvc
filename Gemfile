@@ -6,3 +6,6 @@ ruby '2.6.0'
 
 gem 'sinatra', '2.0.5'
 gem 'rack'
+gem 'rspec', '~> 3.0'
+gem 'guard'
+gem 'guard-rspec'
