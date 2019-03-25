@@ -222,13 +222,19 @@ RSpec.describe Rvc::Component do
     end
 
     describe '.render' do
+      before do
+        allow_any_instance_of(Rvc::JavascriptFunction)
+          .to receive(:object_id).and_return('1')
+      end
+
       let(:expected_html) do
         <<~HTML
-          <script>
+          <script id='1'>
             (function() {
               var script = document.createElement('script');
               script.innerHTML = "function divLikeClassOnClick(){console.log('hi');}";
               document.getElementsByTagName('head')[0].appendChild(script);
+              document.getElementById('1').remove();
             })();
           </script>
           <div id='1' onclick='divLikeClassOnClick();'>hi</div>

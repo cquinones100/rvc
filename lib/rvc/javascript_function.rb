@@ -16,11 +16,12 @@ module Rvc
 
     def to_script_tag
       <<~JS
-        <script>
+        <script id='#{object_id}'>
           (function() {
             var script = document.createElement('script');
             script.innerHTML = "#{to_function.gsub("\n", '')}";
             document.getElementsByTagName('head')[0].appendChild(script);
+            document.getElementById('#{object_id}').remove();
           })();
         </script>
       JS
