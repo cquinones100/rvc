@@ -69,10 +69,32 @@ class Index < Rvc::Component
 
   def body
     DivLikeClass id: 'container', class: 'container' do
-      DivLikeClass id: 'first-row', class: 'row' do
-        DivLikeClass id: 'welcome', class: 'col-md-12' do
-          inline do |container|
-            container.add do
+      inline do |container|
+        container.add do
+          DivLikeClass class: 'row' do
+            inline do |title_row_container|
+              title_row_container.add do
+                DivLikeClass class: 'col-md-8 pull-right' do
+                  <<~HTML
+                  <h1>RVC (Ruby View Components)</h1>
+                  HTML
+                end
+              end
+
+              title_row_container.add do
+                DivLikeClass class: 'col-md-4' do
+                  <<~HTML
+                  <a href='https://github.com/cquinones100/rvc_compiler'>View on Github</a>
+                  HTML
+                end
+              end
+            end
+          end
+        end
+
+        container.add do
+          DivLikeClass id: 'first-row', class: 'row' do
+            DivLikeClass id: 'welcome', class: 'col-md-12' do
               JavascriptDemo do; end
             end
           end
