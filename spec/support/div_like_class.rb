@@ -1,3 +1,5 @@
+require './lib/rvc/component'
+
 class DivLikeClass < Rvc::Component
   locals :id, :onclick
 
