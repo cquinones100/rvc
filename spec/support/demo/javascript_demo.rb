@@ -6,13 +6,18 @@ class JavascriptDemo < Rvc::Component
   def render
     FeatureDemo title: 'Javascript',
       summary: 'Write Javascript directly in components.',
-      code: code do
+      embed_code: embed_code do
       eval code
     end
   end
 
   private
 
+  def embed_code
+    <<~HTML
+    <script src="https://gist.github.com/cquinones100/f968d73799c9e51ef138683f1138834a.js"></script>
+    HTML
+  end
   def code
     <<~RUBY
       inline do |demo_container|

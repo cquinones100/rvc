@@ -3,7 +3,7 @@ require './lib/rvc/component'
 class FeatureDemo < Rvc::Component
   require_components DivLikeClass: './spec/support/div_like_class'
 
-  locals title: :required, summary: :required, code: :required
+  locals title: :required, summary: :required, embed_code: :required
 
   def render
     DivLikeClass id: "#{@title}-feature-demo", class: 'card' do
@@ -38,13 +38,7 @@ class FeatureDemo < Rvc::Component
 
                 row_container.add do
                   DivLikeClass class: 'col-md-8' do
-                    <<~HTML
-                      <pre class='prettyprint' style: 'border:none;'>
-                        <code>
-                     #{sanitized_code('', @code).strip}
-                        <code>
-                      </pre>
-                    HTML
+                    @embed_code
                   end
                 end
               end
@@ -53,41 +47,5 @@ class FeatureDemo < Rvc::Component
         end
       end
     end
-  end
-
-  def format_html(code)
-    code.gsub('<', '&lt;').gsub('>', '&gt;')
-  end
-
-  def sanitized_code(string = '', code)
-    index = heredoc_index(code)
-
-    unless index
-      string += code
-
-      return string
-    end
-
-    string += code[0...index + 7]
-
-    code = code[index + 7..-1]
-
-    end_index = end_heredoc_index(code)
-
-    html_code = code[0...end_index]
-
-    string += format_html(html_code)
-
-    code = code[end_index..-1]
-
-    sanitized_code(string, code)
-  end
-
-  def heredoc_index(code)
-    code.index("<<~HTML")
-  end
-
-  def end_heredoc_index(code)
-    code.index("HTML")
   end
 end
