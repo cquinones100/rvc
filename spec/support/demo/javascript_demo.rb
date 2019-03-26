@@ -15,7 +15,7 @@ class JavascriptDemo < Rvc::Component
           end
 
           demo_container.add do
-            DivLikeClass id: 'enter-your-name' do
+            Div id: 'enter-your-name' do
               'Enter your name'
             end
           end

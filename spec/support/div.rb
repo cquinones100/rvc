@@ -5,8 +5,14 @@ class Div < Rvc::Component
 
   def render
     <<~HTML
-      <div#{attributes}>#{block.call}</div>
+      <div#{attributes}>#{render_block}</div>
     HTML
+  end
+
+  def render_block
+    return '' if block.nil?
+
+    block.call
   end
 
   def attributes
