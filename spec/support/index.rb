@@ -5,7 +5,8 @@ class Index < Rvc::Component
     TextInput: './spec/support/text_input',
     FeatureDemo: './spec/support/demo/feature_demo',
     JavascriptDemo: './spec/support/demo/javascript_demo',
-    HtmlDemo: './spec/support/demo/html_demo'
+    HtmlDemo: './spec/support/demo/html_demo',
+    TestingDemo: './spec/support/demo/testing_demo'
 
   def render
     <<~HTML
@@ -36,7 +37,9 @@ class Index < Rvc::Component
               title_row_container.add do
                 Div class: 'col-md-4' do
                   <<~HTML
-                  <a href='https://github.com/cquinones100/rvc_compiler'>View on Github</a>
+                  <a href='https://github.com/cquinones100/rvc_compiler'>
+                    View on Github
+                  </a>
                   HTML
                 end
               end
@@ -56,6 +59,14 @@ class Index < Rvc::Component
           Div id: 'second-row', class: 'row' do
             Div id: 'javascript-demo-column', class: 'col-md-12' do
               JavascriptDemo do; end
+            end
+          end
+        end
+
+        container.add do
+          Div id: 'third-row', class: 'row' do
+            Div id: 'testing-demo-column', class: 'col-md-12' do
+              TestingDemo do; end
             end
           end
         end

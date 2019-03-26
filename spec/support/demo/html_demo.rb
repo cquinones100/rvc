@@ -1,11 +1,12 @@
 class HtmlDemo < Rvc::Component
+  TITLE = 'HTML'.freeze
+  SUMMARY = 'Generate HTML with Ruby Objects'.freeze
+
   require_components FeatureDemo: './spec/support/demo/feature_demo',
     Div: './spec/support/div'
 
   def render
-    FeatureDemo title: 'HTML',
-      summary: 'Generate HTML with Ruby Objects',
-      embed_code: embed_code do
+    FeatureDemo title: TITLE, summary: SUMMARY, embed_code: embed_code do
         Div id: 'a-div', style: 'border: solid 1px;width:100%padding:5px;' do
           inline do |container|
             container.add do
