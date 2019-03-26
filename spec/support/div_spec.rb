@@ -14,8 +14,7 @@ RSpec.describe Div do
 
         it do
           is_expected
-            .to render_html_element(:div)
-            .with_attribute(:id, id)
+            .to render_html_element(:div).with_attribute(:id, id)
         end
       end
 
@@ -25,8 +24,27 @@ RSpec.describe Div do
 
         it do
           is_expected
-            .to render_html_element(:div)
-            .with_attribute(:onclick, onclick)
+            .to render_html_element(:div).with_attribute(:onclick, onclick)
+        end
+      end
+
+      describe ':class' do
+        let(:class_name) { 'a-div' }
+        let(:locals) { { class: class_name } }
+
+        it do
+          is_expected
+            .to render_html_element(:div).with_attribute(:class, class_name)
+        end
+      end
+
+      describe ':style' do
+        let(:style) { 'margin:auto;' }
+        let(:locals) { { style: style } }
+
+        it do
+          is_expected
+            .to render_html_element(:div).with_attribute(:style, style)
         end
       end
     end

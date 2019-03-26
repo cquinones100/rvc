@@ -28,10 +28,7 @@ module Rvc
           end
 
           def validate_attribute
-            position = subject =~
-              /<div(\s|\w|\W)*#{attribute_to_string}(\s|\w|W)*>/
-                require 'pry'
-              binding.pry
+            position = subject =~ /<div(\s|\w|\W)*#{attribute_to_string}(\s|\w|W)*>/
 
             errors << 'Attribute not found' if position.nil?
           end
@@ -41,11 +38,11 @@ module Rvc
           end
 
           def attribute_to_string
-            "#{attribute}='#{value}'"
+            escape_regex("#{attribute}='#{value}'")
           end
 
-          def invalid_attribute_message
-
+          def escape_regex(code)
+            code.gsub(/[\(\)]/, '(' => '\(', ')' => '\)')
           end
 
           attr_reader :element, :subject, :attribute, :value, :errors
