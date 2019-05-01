@@ -1,4 +1,4 @@
-# RvcCompiler
+# Rvc
 
 A component based view framework for Ruby.
 
